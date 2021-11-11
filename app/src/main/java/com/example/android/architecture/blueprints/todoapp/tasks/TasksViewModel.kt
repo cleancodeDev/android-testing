@@ -134,10 +134,10 @@ class TasksViewModel(application: Application) : AndroidViewModel(application) {
         @StringRes filteringLabelString: Int, @StringRes noTasksLabelString: Int,
         @DrawableRes noTaskIconDrawable: Int, tasksAddVisible: Boolean
     ) {
-        _currentFilteringLabel.value = filteringLabelString
-        _noTasksLabel.value = noTasksLabelString
-        _noTaskIconRes.value = noTaskIconDrawable
-        _tasksAddViewVisible.value = tasksAddVisible
+        _currentFilteringLabel.postValue(filteringLabelString)
+        _noTasksLabel.postValue(noTasksLabelString)
+        _noTaskIconRes.postValue(noTaskIconDrawable)
+        _tasksAddViewVisible.postValue(tasksAddVisible)
     }
 
     fun clearCompletedTasks() {
@@ -161,7 +161,7 @@ class TasksViewModel(application: Application) : AndroidViewModel(application) {
      * Called by the Data Binding library and the FAB's click listener.
      */
     fun addNewTask() {
-        _newTaskEvent.value = Event(Unit)
+        _newTaskEvent.postValue(Event(Unit))
     }
 
     /**
@@ -207,7 +207,7 @@ class TasksViewModel(application: Application) : AndroidViewModel(application) {
      * @param forceUpdate   Pass in true to refresh the data in the [TasksDataSource]
      */
     fun loadTasks(forceUpdate: Boolean) {
-        _forceUpdate.value = forceUpdate
+        _forceUpdate.postValue(forceUpdate)
     }
 
     private fun filterItems(tasks: List<Task>, filteringType: TasksFilterType): List<Task> {
